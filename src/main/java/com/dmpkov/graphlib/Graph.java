@@ -59,6 +59,11 @@ public class Graph<T> {
     public String toEdgeListString() {
         StringBuilder sb = new StringBuilder();
 
+        List<Vertex<T>> sortedVertices = new ArrayList<>(adjacencyMap.keySet());
+        for (Vertex<T> vertex : sortedVertices) {
+            sb.append(vertex.getValue()).append(System.lineSeparator());
+        }
+
         for (Vertex<T> source : adjacencyMap.keySet()) {
             Map<Vertex<T>, Double> neighbors = adjacencyMap.get(source);
 
