@@ -55,4 +55,28 @@ public class Graph<T> {
         }
         return sb.toString();
     }
+
+    public String toEdgeListString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Vertex<T> source : adjacencyMap.keySet()) {
+            Map<Vertex<T>, Double> neighbors = adjacencyMap.get(source);
+
+            for (Map.Entry<Vertex<T>, Double> edge : neighbors.entrySet()) {
+                Vertex<T> destination = edge.getKey();
+
+                if (!isDirected && source.hashCode() > destination.hashCode()) {
+                    continue;
+                }
+
+                sb.append(source.getValue())
+                        .append(" ")
+                        .append(destination.getValue())
+                        .append(" ")
+                        .append(edge.getValue())
+                        .append(System.lineSeparator());
+            }
+        }
+        return sb.toString();
+    }
 }

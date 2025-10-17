@@ -2,6 +2,58 @@ package com.dmpkov.graphlib;
 
 import java.util.*;
 public class GraphAlgorithms {
+
+
+    public static <T> List<Vertex<T>> breadthFirstSearch(Graph<T> graph, T startValue) {
+        Vertex<T> startVertex = new Vertex<>(startValue);
+        if (!graph.getVertices().contains(startVertex)) {
+            return Collections.emptyList();
+        }
+
+        List<Vertex<T>> traversalOrder = new ArrayList<>();
+        Queue<Vertex<T>> queue = new LinkedList<>();
+        Set<Vertex<T>> visited = new HashSet<>();
+
+        queue.add(startVertex);
+        visited.add(startVertex);
+
+        while (!queue.isEmpty()) {
+            Vertex<T> current = queue.poll();
+            traversalOrder.add(current);
+            for (Vertex<T> neighbor : graph.getNeighbors(current)) {
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    queue.add(neighbor);
+                }
+            }
+        }
+        return traversalOrder;
+    }
+
+    public static <T> List<Vertex<T>> depthFirstSearch(Graph<T> graph, T startValue) {
+        Vertex<T> startVertex = new Vertex<>(startValue);
+        if (!graph.getVertices().contains(startVertex)) {
+            return Collections.emptyList();
+        }
+
+        List<Vertex<T>> result = new ArrayList<>();
+        Set<Vertex<T>> visited = new HashSet<>();
+
+        dfsRecursive(graph, startVertex, visited, result);
+
+        return result;
+    }
+
+    private static <T> void dfsRecursive(Graph<T> graph, Vertex<T> current, Set<Vertex<T>> visited, List<Vertex<T>> result) {
+        visited.add(current);
+        result.add(current);
+
+        for (Vertex<T> neighbor : graph.getNeighbors(current)) {
+            if (!visited.contains(neighbor)) {
+                dfsRecursive(graph, neighbor, visited, result);
+            }
+        }
+    }
     public static <T> Map<Vertex<T>, Double> dijkstra(Graph<T> graph, T startValue) {
         Vertex<T> startVertex = new Vertex<>(startValue);
         if (!graph.getVertices().contains(startVertex)) {
