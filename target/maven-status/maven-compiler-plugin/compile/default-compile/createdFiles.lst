@@ -1,3 +1,4 @@
-com\dmpkov\graphlib\GraphAlgorithms.class
-com\dmpkov\graphlib\Graph.class
 com\dmpkov\graphlib\Vertex.class
+com\dmpkov\graphlib\GraphAlgorithms.class
+com\dmpkov\graphlib\GraphGenerator.class
+com\dmpkov\graphlib\Graph.class
